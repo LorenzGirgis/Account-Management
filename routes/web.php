@@ -13,8 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\AccountController;
 
-Route::resource('users', UserController::class);
-Route::get('/', [UserController::class, 'index'])->name('users.index');
-Route::get('/create', [UserController::class, 'create'])->name('users.create');
+Route::resource('accounts', AccountController::class);
+Route::get('/', [AccountController::class, 'index'])->name('accounts.index');
+Route::get('/create', [AccountController::class, 'create'])->name('accounts.create');
+Route::post('/store', [AccountController::class, 'store'])->name('accounts.store');
