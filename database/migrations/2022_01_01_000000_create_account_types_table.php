@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,22 +13,19 @@ class CreateAccountTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('account_type', function (Blueprint $table) {
+        Schema::create('account_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('account_type');
         });
 
-        // Insert initial account types
-        $types = [
-            ['name' => 'Valorant'],
-            ['name' => 'Discord'],
-            ['name' => 'Email'],
-            ['name' => 'Steam'],
-            ['name' => 'Minecraft'],
-            ['name' => 'Other'],
-        ];
-
-        DB::table('account_type')->insert($types);
+        DB::table('account_types')->insert([
+            ['account_type' => 'Valorant'],
+            ['account_type' => 'Discord'],
+            ['account_type' => 'Email'],
+            ['account_type' => 'Steam'],
+            ['account_type' => 'Minecraft'],
+            ['account_type' => 'Other'],
+        ]);
     }
 
     /**
@@ -39,6 +35,6 @@ class CreateAccountTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('account_type');
+        Schema::dropIfExists('account_types');
     }
 }

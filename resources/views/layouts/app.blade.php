@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accounts</title>
     @vite("resources/css/app.css")
-</head>
+    </head>
 <body>
     <nav class="bg-gray-800">
         <div class="container mx-auto px-4">

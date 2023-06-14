@@ -2,43 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Account;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Models\Account;
+use App\Models\AccountType;
 
 class AccountController extends Controller
 {
     public function index()
     {
-        return view('accounts.index');
+        $accounts = Account::with('accountType')->get();
+        return view('accounts.index', compact('accounts'));
     }
-
     public function create()
     {
-        return view('accounts.create');
+        $accountTypes = AccountType::all();
+        return view('accounts.create', compact('accountTypes'));
     }
     
     public function store(Request $request)
     {
-        // Validate the request data
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'account_type' => 'required|in:valorant,minecraft,steam,gmail,discord,other',
-            'account_name' => $request->input('account_type') === 'valorant' ? 'required' : '',
-            'email' => 'required|email',
+        $request->validate([
+            'account_name' => 'required',
+            'name' => 'nullable',
+            'email' => 'required|email|unique:accounts,email',
             'password' => 'required',
+            'account_type_id' => 'required',
         ]);
     
-        // Create a new account
         $account = new Account();
-        $account->account_type = $validatedData['account_type'];
-        $account->name = $validatedData['name'];
-        $account->account_name = $validatedData['account_name'] ?? null; // Use null if the field is empty
-        $account->email = $validatedData['email'];
-        $account->password = Hash::make($validatedData['password']);
+        $account->account_type_id = $request->account_type_id;
+        $account->account_name = $request->account_name;
+        $account->name = $request->name;
+        $account->email = $request->email;
+        $account->password = $request->password;
         $account->save();
     
-        return redirect()->route('accounts.index')->with('success', 'Account added successfully');
-    }
-    
+        return redirect()->route('accounts.index')->with('success', 'Account added successfully.');
+    }    
 }
