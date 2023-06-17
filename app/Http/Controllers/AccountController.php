@@ -22,16 +22,16 @@ class AccountController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'account_name' => 'required',
             'name' => 'nullable',
-            'email' => 'required|email|unique:accounts,email',
+            'account_name' => 'required',
+            'email' => 'required|email|:accounts,email',
             'password' => 'required',
             'account_type_id' => 'required',
         ]);
     
         $account = new Account();
         $account->account_type_id = $request->account_type_id;
-        $account->account_name = $request->account_name;
+        $account->account_name = $request->account_name;    
         $account->name = $request->name;
         $account->email = $request->email;
         $account->password = $request->password;

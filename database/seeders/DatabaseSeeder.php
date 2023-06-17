@@ -1,22 +1,25 @@
 <?php
-
-namespace Database\Seeders;
-
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the seeder.
+     *
+     * @return void
      */
-    public function run(): void
+    public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $accountTypes = [
+            ['account_type' => 'Valorant'],
+            ['account_type' => 'Discord'],
+            ['account_type' => 'Email'],
+            ['account_type' => 'Steam'],
+            ['account_type' => 'Minecraft'],
+            ['account_type' => 'Other'],
+        ];
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        DB::table('account_types')->insert($accountTypes);
     }
 }
