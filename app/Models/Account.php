@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Hash;
 
 class Account extends Model
@@ -18,14 +19,16 @@ class Account extends Model
             }
         });
     }
+
     protected $fillable = [
         'account_type_id',
+        'name',
         'account_name',
         'email',
         'password',
     ];
 
-    public function accountType()
+    public function accountType(): BelongsTo
     {
         return $this->belongsTo(AccountType::class);
     }
