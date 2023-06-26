@@ -1,66 +1,71 @@
-@extends('layouts.app')
-
-@section('content')
+<x-app-layout>
     <div class="flex justify-center">
         <div class="w-96 bg-white p-6 rounded-lg">
             <h2 class="text-xl font-semibold mb-4">Edit Account</h2>
-            <form action="{{ route('accounts.update', ['account' => $account->id]) }}" method="POST">
+
+            <form action="{{ route('update', $account) }}" method="POST">
                 @csrf
                 @method('PUT')
 
                 <div class="mb-4">
-                    <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                    <input type="text" name="name" id="name" value="{{ $account->name }}" class="mt-1 px-4 py-2 w-full border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <x-input-label for="name" :value="__('Name')" />
+                    <x-text-input id="name" name="name" type="text" class="mt-1 block w-full px-4 py-2" :value="old('name', $account->name)" autofocus autocomplete="name" />
+                    <x-input-error class="mt-2" :messages="$errors->get('name')" />
                 </div>
 
                 <div class="mb-4">
-                    <label for="account_name" class="block text-sm font-medium text-gray-700">Account Name</label>
-                    <input type="text" name="account_name" id="account_name" value="{{ $account->account_name }}" class="mt-1 px-4 py-2 w-full border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <x-input-label for="username" :value="__('Username')" />
+                    <x-text-input id="username" name="username" type="text" class="mt-1 block w-full px-4 py-2" :value="old('username', $account->username)" autocomplete="username" />
+                    <x-input-error class="mt-2" :messages="$errors->get('username')" />
                 </div>
 
                 <div class="mb-4">
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" name="email" id="email" value="{{ $account->email }}" class="mt-1 px-4 py-2 w-full border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <x-input-label for="email" :value="__('Email')" />
+                    <x-text-input id="email" name="email" type="email" class="mt-1 block w-full px-4 py-2" :value="old('email', $account->email)" autocomplete="email" />
+                    <x-input-error class="mt-2" :messages="$errors->get('email')" />
                 </div>
 
                 <div class="mb-4">
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <div class="flex items-center">
-                        <input type="password" name="password" id="password" value="" class="mt-1 px-4 py-2 w-full border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                        <input type="checkbox" id="showPassword" class="ml-2">
+                    <x-input-label for="password" :value="__('Password')" />
+                    <x-text-input id="password" name="password" type="password" class="mt-1 block w-full px-4 py-2" :value="old('password')" />
+
+                    <div class="flex items-center mt-1">
+                        <input type="checkbox" id="showPassword">
                         <label for="showPassword" class="ml-1 text-sm text-gray-700">Show Password</label>
                     </div>
+
+                    <x-input-error class="mt-2" :messages="$errors->get('password')" />
                 </div>
 
                 <div class="mb-4">
-                    <label for="account_type_id" class="block text-sm font-medium text-gray-700">Account Type</label>
-                    <select name="account_type_id" id="account_type_id" class="mt-1 px-4 py-2 w-full border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                        @foreach($accountTypes as $accountType)
-                            <option value="{{ $accountType->id }}" @if($accountType->id === $account->account_type_id) selected @endif>{{ $accountType->account_type }}</option>
-                        @endforeach
-                    </select>
+                    <x-input-label for="account_type_id" :value="__('Account Type')" />
+                    <x-select-input id="account_type_id" name="account_type_id" class="mt-1 block w-full px-4 py-2" :options="$accountTypes" :account="$account" />
+                    <x-input-error class="mt-2" :messages="$errors->get('account_type_id')" />
                 </div>
 
-                <div class="flex justify-between">
-                    <button type="submit" class="px-4 py-2 bg-indigo-500 text-white font-semibold rounded-md hover:bg-indigo-600">Save</button>
-                    <form action="{{ route('accounts.destroy', ['account' => $account->id]) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="px-4 py-2 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600">Delete</button>
-                    </form>
-                </div>
+                <button type="submit" class="px-4 py-2 bg-indigo-500 text-white font-semibold rounded-md hover:bg-indigo-600">Save</button>
+            </form>
+
+            <form action="{{ route('destroy', $account->id) }}" method="POST" class="mt-2">
+                @csrf
+                @method('DELETE')
+
+                <button type="submit" class="px-4 py-2 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600">Delete</button>
             </form>
         </div>
     </div>
 
-    <script>
-        document.getElementById('showPassword').addEventListener('change', function() {
-            var passwordInput = document.getElementById('password');
-            if (this.checked) {
-                passwordInput.type = 'text';
-            } else {
-                passwordInput.type = 'password';
-            }
-        });
-    </script>
-@endsection
+    @push('scripts')
+        <script>
+            document.getElementById('showPassword').addEventListener('change', function() {
+                let passwordInput = document.getElementById('password');
+
+                if (this.checked) {
+                    passwordInput.type = 'text';
+                } else {
+                    passwordInput.type = 'password';
+                }
+            });
+        </script>
+    @endpush
+</x-app-layout>
