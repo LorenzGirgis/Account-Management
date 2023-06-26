@@ -32,7 +32,7 @@ class AccountController extends Controller
 
         Account::create($validated);
 
-        return redirect()->route('accounts.index')->with('success', 'Account added successfully.');
+        return redirect()->route('index')->with('success', 'Account added successfully.');
     }
 
     public function edit(Account $account)
@@ -51,13 +51,13 @@ class AccountController extends Controller
 
         $account->update($validated);
 
-        return redirect()->route('accounts.index')->with('success', 'Account updated successfully.');
+        return redirect()->route('index')->with('success', 'Account updated successfully.');
     }
 
     public function destroy(Account $account)
     {
         $account->delete();
 
-        return redirect()->route('accounts.index')->with('success', 'Account deleted successfully.');
+        return redirect()->route('index')->with('success', 'Account deleted successfully.');
     }
 }

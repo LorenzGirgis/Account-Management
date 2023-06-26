@@ -1,4 +1,6 @@
 <?php
+
+use Database\Seeders\AccountTypeSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

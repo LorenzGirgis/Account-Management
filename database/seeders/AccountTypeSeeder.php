@@ -20,7 +20,7 @@ class AccountTypeSeeder extends Seeder
 
         foreach ($accountTypes as $accountType) {
             AccountType::create([
-                'account_type' => $accountType,
+                'name' => $accountType,
             ]);
         }
     }

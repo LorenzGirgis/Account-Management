@@ -11,7 +11,7 @@ class AccountRequest extends FormRequest
         return [
             'account_type_id' => 'required',
             'name' => 'nullable',
-            'account_name' => 'required',
+            'username' => 'required',
             'email' => 'required|email:rfc,dns',
             'password' => 'required',
         ];

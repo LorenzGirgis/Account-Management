@@ -12,7 +12,7 @@ class CreateAccountsTable extends Migration
             $table->id();
             $table->foreignId('account_type_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('name')->nullable();
-            $table->string('account_name');
+            $table->string('username');
             $table->string('email');
             $table->string('password');
             $table->timestamps();
