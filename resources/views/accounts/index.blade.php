@@ -82,7 +82,7 @@
                     </script>
                     <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
   @foreach($accounts as $account)
-    <a href="{{ route('edit', ['account' => $account->id]) }}" class="group account-item" data-account-type="{{ $account->accountType->name }}">
+    <a href="{{ route('show', ['account' => $account->id]) }}" class="group account-item" data-account-type="{{ $account->accountType->name }}">
       <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200">
       <img src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg" alt="Account Image" class="h-full w-full object-cover object-center group-hover:opacity-75">
       </div>

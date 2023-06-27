@@ -17,6 +17,11 @@ class AccountController extends Controller
         ]);
     }
 
+    public function show(Account $account)
+    {
+        return view('accounts.show', compact('account'));
+    }
+
     public function create()
     {
         $accountTypes = AccountType::all();
